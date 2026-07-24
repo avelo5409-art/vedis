@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEDIS — Crafted for Devotion | Premium Tulsi Kanthi Malas &amp; Sacred Living</title>
+<meta name="description" content="VEDIS crafts premium Tulsi Kanthi Malas, Rudraksha and spiritual essentials — rooted in nature, guided by ritual. Return to what is real.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ TOKENS ============ */
+  :root{
+    --ivory:#F7F2E7;
+    --ivory-2:#F1E9D9;
+    --sand:#E9DCC2;
+    --stone:#D6C4A0;
+    --olive:#4B5A3C;
+    --olive-dark:#333E27;
+    --forest:#1E2818;
+    --forest-2:#151E10;
+    --gold:#AD8A4E;
+    --gold-light:#C7A868;
+    --brown:#6E4E33;
+    --ink:#2A2620;
+    --ink-soft:#5B5245;
+    --white:#FFFDF8;
+    --line: rgba(42,38,32,0.12);
+    --shadow-soft: 0 20px 60px -20px rgba(42,38,32,0.25);
+    --shadow-card: 0 12px 32px -12px rgba(42,38,32,0.18);
+    --ease: cubic-bezier(.22,1,.36,1);
+    --dur-fast: .4s;
+    --dur: .8s;
+    --dur-slow: 1.4s;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--ivory);
+    color:var(--ink);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img{max-width:100%; display:block;}
+  a{text-decoration:none; color:inherit;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
+  ul{list-style:none;}
+  .container{max-width:1320px; margin:0 auto; padding:0 48px;}
+  @media(max-width:768px){ .container{padding:0 24px;} }
+
+  h1,h2,h3,h4{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    color:var(--forest);
+    letter-spacing:.2px;
+  }
+
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-size:11px;
+    letter-spacing:3.5px;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .eyebrow::before, .eyebrow.center::after{
+    content:'';
+    width:26px; height:1px;
+    background:var(--gold);
+    display:inline-block;
+  }
+  .eyebrow.center{justify-content:center;}
+
+  .section-pad{ padding:130px 0; }
+  @media(max-width:900px){ .section-pad{ padding:88px 0; } }
+
+  /* ============ SCROLLBAR ============ */
+  ::-webkit-scrollbar{width:9px;}
+  ::-webkit-scrollbar-track{background:var(--ivory);}
+  ::-webkit-scrollbar-thumb{background:var(--stone); border-radius:10px;}
+
+  /* ============ LOADER ============ */
+  #loader{
+    position:fixed; inset:0; z-index:9999;
+    background:var(--forest);
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    gap:22px;
+    transition:opacity 1s var(--ease), visibility 1s var(--ease);
+  }
+  #loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+  .loader-mark{
+    font-family:'Cormorant Garamond', serif;
+    font-size:15px;
+    letter-spacing:10px;
+    color:var(--ivory);
+    text-transform:uppercase;
+  }
+  .loader-leaf{ width:46px; height:46px; opacity:.9; }
+  .loader-leaf svg{ width:100%; height:100%; }
+  .loader-leaf path{
+    stroke:var(--gold-light);
+    stroke-width:1.2;
+    fill:none;
+    stroke-dasharray:220;
+    stroke-dashoffset:220;
+    animation: draw 1.8s var(--ease) infinite;
+  }
+  @keyframes draw{
+    0%{stroke-dashoffset:220;}
+    55%{stroke-dashoffset:0;}
+    100%{stroke-dashoffset:-220;}
+  }
+  .loader-bar{ width:180px; height:1px; background:rgba(255,255,255,.15); position:relative; overflow:hidden;}
+  .loader-bar::after{
+    content:''; position:absolute; left:-40%; top:0; height:100%; width:40%;
+    background:var(--gold-light);
+    animation:loaderSweep 1.4s var(--ease) infinite;
+  }
+  @keyframes loaderSweep{ 0%{left:-40%;} 100%{left:100%;} }
+
+  /* ============ CURSOR GLOW ============ */
+  #cursor-glow{
+    position:fixed; top:0; left:0; width:420px; height:420px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(173,138,78,0.10), transparent 70%);
+    pointer-events:none; z-index:2;
+    transform:translate(-50%,-50%);
+    transition:opacity .3s ease;
+    opacity:0;
+  }
+
+  /* ============ BEAD THREAD (signature element) ============ */
+  #bead-thread{
+    position:fixed;
+    right:26px; top:50%; transform:translateY(-50%);
+    z-index:60;
+    display:flex; flex-direction:column; align-items:center;
+    gap:16px;
+    padding:18px 8px;
+  }
+  #bead-thread::before{
+    content:'';
+    position:absolute; left:50%; top:-10px; bottom:-10px; width:1px;
+    background:linear-gradient(to bottom, transparent, var(--stone), transparent);
+    transform:translateX(-50%);
+    z-index:-1;
+  }
+  .bead{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--sand);
+    border:1px solid var(--stone);
+    transition: all .6s var(--ease);
+    position:relative;
+  }
+  .bead[data-label]::after{
+    content:attr(data-label);
+    position:absolute; right:22px; top:50%; transform:translateY(-50%);
+    font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--forest); white-space:nowrap;
+    opacity:0; transition:opacity .3s ease;
+    font-weight:600;
+    background:var(--white); padding:4px 10px; border-radius:20px;
+    box-shadow:var(--shadow-card);
+  }
+  .bead:hover[data-label]::after{ opacity:1; }
+  .bead.active{
+    background:var(--gold);
+    border-color:var(--gold);
+    width:12px; height:12px;
+    box-shadow:0 0 0 5px rgba(173,138,78,0.18);
+  }
+  @media(max-width:1180px){ #bead-thread{ display:none; } }
+
+  /* ============ NAV ============ */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:500;
+    padding:26px 0;
+    transition: all .5s var(--ease);
+  }
+  header.nav .container{
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  header.nav.scrolled{
+    padding:14px 0;
+    background:rgba(247,242,231,0.78);
+    backdrop-filter:blur(16px) saturate(140%);
+    -webkit-backdrop-filter:blur(16px) saturate(140%);
+    box-shadow:0 1px 0 var(--line);
+  }
+  .brand{ display:flex; flex-direction:column; align-items:flex-start; }
+  .brand .brand-name{
+    font-family:'Cormorant Garamond', serif;
+    font-size:28px; letter-spacing:6px; font-weight:500; color:var(--forest);
+  }
+  .brand .brand-tag{
+    font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-top:2px;
+  }
+  nav.primary-links{ display:flex; gap:40px; }
+  nav.primary-links a{
+    font-size:12.5px; letter-spacing:1.6px; text-transform:uppercase; font-weight:600;
+    color:var(--ink); position:relative; padding-bottom:4px;
+  }
+  nav.primary-links a.current::after, nav.primary-links a:hover::after{
+    content:''; position:absolute; left:0; bottom:0; width:100%; height:1px; background:var(--gold);
+  }
+  .nav-icons{ display:flex; align-items:center; gap:22px; }
+  .nav-icons button{ position:relative; display:flex; }
+  .nav-icons svg{ width:19px; height:19px; stroke:var(--forest); }
+  .bag-count{
+    position:absolute; top:-7px; right:-9px; background:var(--olive); color:var(--white);
+    font-size:9px; width:16px; height:16px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-weight:600;
+  }
+  .hamburger{ display:none; flex-direction:column; gap:5px; }
+  .hamburger span{ width:24px; height:1.5px; background:var(--forest); }
+  @media(max-width:960px){
+    nav.primary-links{ display:none; }
+    .hamburger{ display:flex; }
+  }
+
+  /* mobile drawer */
+  #mobile-drawer{
+    position:fixed; inset:0; background:var(--forest); z-index:900;
+    transform:translateX(100%); transition:transform .55s var(--ease);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:30px;
+  }
+  #mobile-drawer.open{ transform:translateX(0); }
+  #mobile-drawer a{ color:var(--ivory); font-family:'Cormorant Garamond',serif; font-size:30px; letter-spacing:2px; }
+  #mobile-close{ position:absolute; top:30px; right:30px; }
+  #mobile-close svg{ width:24px; height:24px; stroke:var(--ivory); }
+
+  /* ============ BUTTONS ============ */
+  .btn{
+    position:relative; overflow:hidden;
+    display:inline-flex; align-items:center; gap:10px;
+    padding:16px 30px; border-radius:100px;
+    font-size:12px; letter-spacing:2px; text-transform:uppercase; font-weight:600;
+    transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  .btn svg{ width:14px; height:14px; transition:transform .45s var(--ease); }
+  .btn:hover svg{ transform:translateX(5px); }
+  .btn::before{
+    content:''; position:absolute; top:0; left:-120%; width:60%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+    transform:skewX(-20deg);
+    transition:left .8s var(--ease);
+  }
+  .btn:hover::before{ left:130%; }
+  .btn-solid{ background:var(--olive); color:var(--white); }
+  .btn-solid:hover{ background:var(--olive-dark); box-shadow:0 14px 30px -10px rgba(75,90,60,.55); transform:translateY(-2px); }
+  .btn-outline{ background:transparent; color:var(--forest); border:1px solid var(--forest); }
+  .btn-outline:hover{ background:var(--forest); color:var(--white); transform:translateY(-2px); }
+  .btn-light{ background:var(--ivory); color:var(--forest); border:1px solid var(--stone); }
+
+  /* ============ REVEAL ============ */
+  .reveal{ opacity:0; transform:translateY(36px); transition:opacity 1s var(--ease), transform 1s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-delay-1{ transition-delay:.12s; }
+  .reveal-delay-2{ transition-delay:.24s; }
+  .reveal-delay-3{ transition-delay:.36s; }
+
+  /* ============ FLOATING BG SHAPES ============ */
+  .float-shape{
+    position:absolute; border-radius:50%; filter:blur(60px); opacity:.35; z-index:0;
+    animation: floaty 9s ease-in-out infinite;
+  }
+  @keyframes floaty{ 0%,100%{ transform:translateY(0) translateX(0);} 50%{ transform:translateY(-24px) translateX(14px);} }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    padding-top:190px; padding-bottom:70px;
+    background:
+      radial-gradient(1100px 500px at 85% -10%, rgba(173,138,78,.10), transparent 60%),
+      var(--ivory);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1fr 1.05fr; gap:70px; align-items:center;
+  }
+  .hero-copy .eyebrow{ margin-bottom:26px; }
+  .hero-copy h1{
+    font-size:clamp(42px,5.4vw,68px); line-height:1.06; letter-spacing:.5px; margin-bottom:24px;
+  }
+  .hero-copy h1 em{ font-style:italic; color:var(--gold); font-weight:500; }
+  .hero-copy p.lead{
+    font-size:16.5px; color:var(--ink-soft); max-width:430px; margin-bottom:38px;
+  }
+  .hero-ctas{ display:flex; gap:18px; margin-bottom:56px; flex-wrap:wrap; }
+  .hero-trust{ display:flex; gap:34px; flex-wrap:wrap; }
+  .hero-trust div{ display:flex; align-items:center; gap:10px; font-size:11.5px; letter-spacing:.5px; color:var(--ink-soft); }
+  .hero-trust svg{ width:17px; height:17px; stroke:var(--gold); flex-shrink:0; }
+
+  .hero-visual{ position:relative; }
+  .hero-visual .frame{
+    position:relative; border-radius:6px 60px 6px 60px; overflow:hidden;
+    box-shadow:var(--shadow-soft);
+    aspect-ratio:4/4.6;
+  }
+  .hero-visual .frame img{
+    width:100%; height:100%; object-fit:cover;
+    transform:scale(1.08);
+    transition:transform 6s var(--ease);
+  }
+  .hero-visual:hover .frame img{ transform:scale(1); }
+  .hero-quote{
+    position:absolute; top:28px; right:-30px;
+    background:var(--forest-2); color:var(--ivory);
+    padding:26px 26px; border-radius:16px;
+    max-width:230px; box-shadow:var(--shadow-soft);
+    font-family:'Cormorant Garamond',serif; font-size:15.5px; line-height:1.5; font-style:italic;
+  }
+  .hero-quote svg{ width:26px; height:26px; stroke:var(--gold-light); margin-bottom:12px; }
+  @media(max-width:1180px){ .hero-quote{ right:6px; } }
+
+  .leaf-deco{
+    position:absolute; left:-40px; top:120px; width:180px; opacity:.5; z-index:0;
+    animation: swayLeaf 7s ease-in-out infinite;
+  }
+  @keyframes swayLeaf{ 0%,100%{ transform:rotate(0deg);} 50%{ transform:rotate(2.5deg);} }
+
+  @media(max-width:980px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-copy p.lead{ max-width:100%; }
+    .hero-visual{ order:-1; }
+    .hero-quote{ display:none; }
+    .leaf-deco{ display:none; }
+  }
+
+  /* ============ TRUST STRIP ============ */
+  .trust-strip{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--ivory-2); }
+  .trust-strip .container{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    padding:38px 48px;
+  }
+  .trust-item{
+    display:flex; align-items:center; gap:16px; padding:0 26px;
+    border-left:1px solid var(--line);
+  }
+  .trust-item:first-child{ border-left:none; padding-left:0; }
+  .trust-item svg{ width:30px; height:30px; stroke:var(--gold); flex-shrink:0; }
+  .trust-item h4{ font-family:'Inter',sans-serif; font-size:13.5px; font-weight:600; color:var(--forest); margin-bottom:4px; text-transform:uppercase; letter-spacing:.5px; }
+  .trust-item p{ font-size:12.5px; color:var(--ink-soft); }
+  @media(max-width:900px){
+    .trust-strip .container{ grid-template-columns:1fr 1fr; gap:26px 0; padding:34px 24px;}
+    .trust-item{ border-left:none; padding:0; }
+  }
+
+  /* ============ SECTION HEADER ============ */
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:56px; gap:20px; flex-wrap:wrap; }
+  .section-head h2{ font-size:clamp(30px,3.4vw,44px); margin-top:14px; }
+  .section-head .view-all{ font-size:12px; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; border-bottom:1px solid var(--forest); padding-bottom:3px; }
+
+  /* ============ BESTSELLERS ============ */
+  .bestsellers{ position:relative; }
+  .product-row{ position:relative; }
+  .product-track{
+    display:grid; grid-auto-flow:column; grid-auto-columns:minmax(300px,1fr);
+    gap:30px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:10px;
+    scrollbar-width:none;
+  }
+  .product-track::-webkit-scrollbar{ display:none; }
+  .p-card{
+    scroll-snap-align:start;
+    background:var(--white); border-radius:22px; overflow:hidden;
+    border:1px solid var(--line); box-shadow:var(--shadow-card);
+    transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+  }
+  .p-card:hover{ transform:translateY(-8px); box-shadow:0 26px 50px -18px rgba(42,38,32,.28); }
+  .p-media{ aspect-ratio:1/1.02; overflow:hidden; position:relative; }
+  .p-media img{ width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ease); }
+  .p-card:hover .p-media img{ transform:scale(1.09); }
+  .p-tag{ position:absolute; top:16px; left:16px; background:var(--forest); color:var(--white); font-size:10px; letter-spacing:1.5px; padding:6px 12px; border-radius:20px; text-transform:uppercase; }
+  .p-body{ padding:22px 24px 26px; display:flex; justify-content:space-between; align-items:flex-end; gap:10px; }
+  .p-body h3{ font-size:20px; margin-bottom:4px; }
+  .p-body .p-sub{ font-size:12.5px; color:var(--ink-soft); margin-bottom:10px; }
+  .p-body .p-price{ font-size:16px; font-weight:600; color:var(--olive-dark); font-family:'Inter',sans-serif; }
+  .p-go{
+    width:44px; height:44px; border-radius:50%; background:var(--forest); color:var(--white);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    transition:background .35s ease, transform .35s var(--ease);
+  }
+  .p-go svg{ width:15px; height:15px; }
+  .p-card:hover .p-go{ background:var(--gold); transform:rotate(45deg); }
+
+  .carousel-arrows{ display:flex; gap:12px; margin-top:34px; justify-content:flex-end; }
+  .arrow-btn{
+    width:48px; height:48px; border-radius:50%; border:1px solid var(--line); background:var(--white);
+    display:flex; align-items:center; justify-content:center; transition:all .35s var(--ease);
+  }
+  .arrow-btn svg{ width:16px; height:16px; stroke:var(--forest); }
+  .arrow-btn:hover{ background:var(--forest); border-color:var(--forest); }
+  .arrow-btn:hover svg{ stroke:var(--white); }
+
+  /* ============ STORY ============ */
+  .story{ background:var(--ivory-2); position:relative; overflow:hidden; }
+  .story-grid{ display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .story-copy p{ color:var(--ink-soft); max-width:440px; margin:22px 0 30px; font-size:15.5px; }
+  .story-copy h2{ font-size:clamp(30px,3.6vw,46px); line-height:1.15; margin-top:16px; }
+  .story-link{ font-size:12px; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; border-bottom:1px solid var(--gold); color:var(--gold); padding-bottom:4px; display:inline-flex; align-items:center; gap:8px; }
+  .story-link svg{ width:13px; height:13px; transition:transform .4s var(--ease); }
+  .story-link:hover svg{ transform:translateX(5px); }
+
+  .story-visual{ position:relative; }
+  .story-visual .blob{
+    border-radius:50% 50% 46% 54% / 55% 45% 55% 45%;
+    overflow:hidden; aspect-ratio:1/1; box-shadow:var(--shadow-soft);
+  }
+  .story-visual .blob img{ width:100%; height:100%; object-fit:cover; }
+  .stat-card{
+    position:absolute; bottom:-30px; left:-40px; background:var(--white);
+    border-radius:18px; padding:24px 28px; box-shadow:var(--shadow-card);
+    border:1px solid var(--line);
+  }
+  .stat-card .num{ font-family:'Cormorant Garamond',serif; font-size:38px; color:var(--olive-dark); font-weight:500; }
+  .stat-card .lbl{ font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--ink-soft); margin-top:2px; }
+  @media(max-width:980px){
+    .story-grid{ grid-template-columns:1fr; gap:60px; }
+    .story-visual{ order:-1; }
+    .stat-card{ left:14px; bottom:-24px; }
+  }
+
+  /* ============ LIFESTYLE BANNER ============ */
+  .lifestyle{
+    position:relative; height:76vh; min-height:500px; overflow:hidden;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+  }
+  .lifestyle .bg{
+    position:absolute; inset:0; z-index:0;
+  }
+  .lifestyle .bg img{ width:100%; height:120%; object-fit:cover; }
+  .lifestyle::after{
+    content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,26,16,.35), rgba(20,26,16,.65)); z-index:1;
+  }
+  .lifestyle-copy{ position:relative; z-index:2; color:var(--ivory); max-width:640px; padding:0 24px; }
+  .lifestyle-copy .eyebrow{ color:var(--gold-light); justify-content:center; }
+  .lifestyle-copy .eyebrow::before{ background:var(--gold-light); }
+  .lifestyle-copy h2{ color:var(--ivory); font-size:clamp(32px,4.6vw,54px); margin:20px 0 28px; line-height:1.15; }
+  .lifestyle-copy .btn-outline{ border-color:var(--ivory); color:var(--ivory); }
+  .lifestyle-copy .btn-outline:hover{ background:var(--ivory); color:var(--forest); }
+
+  /* ============ WHY CHOOSE US ============ */
+  .why-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:80px; align-items:center; }
+  .why-visual{ position:relative; border-radius:26px; overflow:hidden; aspect-ratio:4/4.6; box-shadow:var(--shadow-soft); }
+  .why-visual img{ width:100%; height:100%; object-fit:cover; }
+  .why-list{ display:flex; flex-direction:column; gap:6px; }
+  .why-row{ display:flex; gap:24px; padding:26px 0; border-bottom:1px solid var(--line); }
+  .why-row:last-child{ border-bottom:none; }
+  .why-num{ font-family:'Cormorant Garamond',serif; font-size:34px; color:var(--stone); font-weight:500; flex-shrink:0; width:50px; }
+  .why-row h3{ font-size:20px; margin-bottom:8px; }
+  .why-row p{ font-size:14.5px; color:var(--ink-soft); max-width:460px; }
+  @media(max-width:980px){ .why-grid{ grid-template-columns:1fr; gap:50px; } }
+
+  /* ============ REVIEWS ============ */
+  .reviews{ background:var(--ivory-2); }
+  .review-track{ position:relative; overflow:hidden; }
+  .review-slides{ display:flex; transition:transform .7s var(--ease); }
+  .review-slide-wrap{ min-width:100%; display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+  .r-card{
+    background:var(--white); border:1px solid var(--line); border-radius:20px; padding:34px 30px;
+    box-shadow:var(--shadow-card); position:relative;
+  }
+  .r-card .quote-mark{ font-family:'Cormorant Garamond',serif; font-size:56px; color:var(--stone); line-height:0; position:absolute; top:30px; right:26px; }
+  .stars{ display:flex; gap:3px; margin-bottom:16px; }
+  .stars svg{ width:15px; height:15px; fill:var(--gold); }
+  .r-card p.txt{ font-size:14.5px; color:var(--ink-soft); margin-bottom:22px; min-height:78px; }
+  .r-card .who{ font-size:13px; font-weight:600; color:var(--forest); }
+  .review-nav{ display:flex; justify-content:center; gap:10px; margin-top:40px; align-items:center; }
+  .review-nav .arrow-btn{ width:42px; height:42px; }
+  .dots{ display:flex; gap:8px; }
+  .dot{ width:7px; height:7px; border-radius:50%; background:var(--stone); transition:all .35s ease; }
+  .dot.active{ background:var(--gold); width:22px; border-radius:5px; }
+  @media(max-width:900px){ .review-slide-wrap{ grid-template-columns:1fr; } }
+
+  /* ============ INSTAGRAM ============ */
+  .insta-head{ text-align:center; margin-bottom:50px; }
+  .insta-head .eyebrow{ justify-content:center; margin:0 auto 10px; }
+  .insta-head h2{ font-size:clamp(26px,3vw,36px); }
+  .insta-grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:4px; }
+  .insta-item{ position:relative; aspect-ratio:1/1; overflow:hidden; }
+  .insta-item img{ width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
+  .insta-item:hover img{ transform:scale(1.12); }
+  .insta-item::after{
+    content:''; position:absolute; inset:0; background:rgba(30,40,24,0);
+    transition:background .4s ease;
+  }
+  .insta-item:hover::after{ background:rgba(30,40,24,.28); }
+  .insta-item svg{
+    position:absolute; top:50%; left:50%; width:22px; height:22px; stroke:var(--white);
+    transform:translate(-50%,-50%) scale(0); transition:transform .4s var(--ease); z-index:2;
+  }
+  .insta-item:hover svg{ transform:translate(-50%,-50%) scale(1); }
+  @media(max-width:900px){ .insta-grid{ grid-template-columns:repeat(3,1fr);} }
+
+  /* ============ NEWSLETTER ============ */
+  .newsletter{ background:var(--forest); color:var(--ivory); position:relative; overflow:hidden; }
+  .news-inner{ display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap; padding:64px 0; }
+  .news-left{ display:flex; align-items:center; gap:22px; }
+  .news-left svg{ width:38px; height:38px; stroke:var(--gold-light); flex-shrink:0; }
+  .news-left h3{ color:var(--ivory); font-size:24px; margin-bottom:4px; }
+  .news-left p{ color:rgba(247,242,231,.65); font-size:13.5px; max-width:340px; }
+  .news-form{ display:flex; gap:0; border-bottom:1px solid rgba(247,242,231,.3); min-width:380px; }
+  .news-form input{
+    background:transparent; border:none; padding:14px 6px; color:var(--ivory); font-size:14px; flex:1; outline:none;
+  }
+  .news-form input::placeholder{ color:rgba(247,242,231,.5); }
+  .news-form button{
+    padding:14px 26px; background:var(--gold); color:var(--forest-2); font-size:11.5px; letter-spacing:2px;
+    text-transform:uppercase; font-weight:700; border-radius:4px; transition:background .3s ease;
+  }
+  .news-form button:hover{ background:var(--gold-light); }
+  .news-msg{ font-size:12.5px; color:var(--gold-light); margin-top:10px; opacity:0; transition:opacity .4s ease; }
+  .news-msg.show{ opacity:1; }
+  @media(max-width:760px){ .news-form{ min-width:100%; } }
+
+  /* ============ FOOTER ============ */
+  footer{ background:var(--ivory-2); padding-top:80px; }
+  .footer-top{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr 1fr 1.1fr; gap:40px; padding-bottom:60px; border-bottom:1px solid var(--line); }
+  .footer-brand .brand-name{ font-size:26px; }
+  .footer-brand p{ font-size:13px; color:var(--ink-soft); margin:16px 0 22px; max-width:230px; }
+  .social-row{ display:flex; gap:14px; }
+  .social-row a{ width:36px; height:36px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .3s ease; }
+  .social-row svg{ width:15px; height:15px; stroke:var(--forest); }
+  .social-row a:hover{ background:var(--forest); border-color:var(--forest); }
+  .social-row a:hover svg{ stroke:var(--ivory); }
+  .f-col h4{ font-family:'Inter',sans-serif; font-size:12.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--forest); margin-bottom:20px; font-weight:700; }
+  .f-col li{ margin-bottom:12px; }
+  .f-col a{ font-size:13.5px; color:var(--ink-soft); transition:color .3s ease; }
+  .f-col a:hover{ color:var(--gold); }
+  .badge-box{ border:1px solid var(--line); border-radius:14px; padding:22px; display:flex; flex-direction:column; gap:16px; background:var(--white); }
+  .badge-row{ display:flex; align-items:center; gap:12px; }
+  .badge-row svg{ width:22px; height:22px; stroke:var(--gold); flex-shrink:0; }
+  .badge-row .t1{ font-size:11.5px; font-weight:700; letter-spacing:.5px; color:var(--forest); }
+  .badge-row .t2{ font-size:11px; color:var(--ink-soft); }
+  .footer-bottom{ display:flex; justify-content:space-between; padding:26px 0; font-size:12px; color:var(--ink-soft); flex-wrap:wrap; gap:10px; }
+  .footer-bottom a{ margin-left:22px; }
+  @media(max-width:980px){
+    .footer-top{ grid-template-columns:1fr 1fr; }
+    .footer-brand{ grid-column:1/3; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-leaf">
+    <svg viewBox="0 0 60 60" fill="none"><path d="M30 6C42 14 48 26 40 42C32 50 18 50 12 40C6 28 14 14 30 6Z"/></svg>
+  </div>
+  <div class="loader-mark">VEDIS</div>
+  <div class="loader-bar"></div>
+</div>
+
+<!-- CURSOR GLOW -->
+<div id="cursor-glow"></div>
+
+<!-- SIGNATURE BEAD THREAD -->
+<div id="bead-thread" aria-hidden="true">
+  <div class="bead" data-section="hero" data-label="Begin"></div>
+  <div class="bead" data-section="bestsellers" data-label="Discover"></div>
+  <div class="bead" data-section="story" data-label="Our Story"></div>
+  <div class="bead" data-section="lifestyle" data-label="Ritual"></div>
+  <div class="bead" data-section="why" data-label="Why Us"></div>
+  <div class="bead" data-section="reviews" data-label="Voices"></div>
+  <div class="bead" data-section="newsletter" data-label="Join"></div>
+</div>
+
+<!-- MOBILE DRAWER -->
+<div id="mobile-drawer">
+  <button id="mobile-close"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <a href="#hero">Home</a>
+  <a href="#bestsellers">Shop</a>
+  <a href="#why">Rituals</a>
+  <a href="#story">Our Story</a>
+  <a href="#reviews">Journal</a>
+  <a href="#newsletter">Contact</a>
+</div>
+
+<!-- NAV -->
+<header class="nav" id="siteNav">
+  <div class="container">
+    <a href="#hero" class="brand">
+      <span class="brand-name">VEDIS</span>
+      <span class="brand-tag">Crafted for Devotion.</span>
+    </a>
+    <nav class="primary-links">
+      <a href="#hero" class="current">Home</a>
+      <a href="#bestsellers">Shop</a>
+      <a href="#why">Rituals</a>
+      <a href="#story">Our Story</a>
+      <a href="#reviews">Journal</a>
+      <a href="#newsletter">Contact</a>
+    </nav>
+    <div class="nav-icons">
+      <button aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
+      <button aria-label="Account"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg></button>
+      <button aria-label="Bag"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="bag-count">0</span></button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="leaf-deco">
+      <svg viewBox="0 0 200 500" fill="none" stroke="var(--stone)" stroke-width="1">
+        <path d="M100 20 C100 120 100 380 100 480"/>
+        <path d="M100 80 C130 70 160 90 165 120 C140 130 110 115 100 80Z"/>
+        <path d="M100 150 C70 140 40 160 35 190 C60 200 90 185 100 150Z"/>
+        <path d="M100 230 C130 220 160 240 165 270 C140 280 110 265 100 230Z"/>
+        <path d="M100 320 C70 310 40 330 35 360 C60 370 90 355 100 320Z"/>
+      </svg>
+    </div>
+    <div class="container hero-grid">
+      <div class="hero-copy reveal in">
+        <p class="eyebrow">Rooted in Nature. Guided by Ritual.</p>
+        <h1>Return to<br>What is <em>Real</em>.</h1>
+        <p class="lead">Premium Tulsi Kanthi Malas, hand-strung with devotion and purity — for the ones returning to themselves.</p>
+        <div class="hero-ctas">
+          <a href="#bestsellers" class="btn btn-solid">Explore Collection <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#why" class="btn btn-outline">Our Rituals</a>
+        </div>
+        <div class="hero-trust">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 3l2.5 5 5.5.8-4 4 1 5.5L12 16l-5 2.3 1-5.5-4-4 5.5-.8Z"/></svg> Authentic &amp; Sacred</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 21c4-3 7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 3 8 7 11Z"/></svg> Handcrafted with Care</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 14a8 8 0 1 1 16 0c0 4-3 7-8 8-5-1-8-4-8-8Z"/></svg> Pure &amp; Natural</div>
+        </div>
+      </div>
+      <div class="hero-visual reveal reveal-delay-2 in">
+        <div class="frame">
+          <img src="https://images.unsplash.com/photo-1643183638834-6f46f6667348?w=1200&q=80&auto=format&fit=crop" alt="Woman sitting peacefully by a forest river at dawn">
+        </div>
+        <div class="hero-quote">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2"><path d="M12 3v4M12 17v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M3 12h4M17 12h4M4.2 19.8L7 17M17 7l2.8-2.8"/></svg>
+          You are not becoming someone new. You are remembering who you are.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7l-9-5Z"/></svg>
+        <div><h4>Authentic Origin</h4><p>Sourced responsibly from sacred places.</p></div>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        <div><h4>Energy Purified</h4><p>Ritualistically cleansed and energised.</p></div>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8Z"/><path d="M2 8h20l-2-4H4L2 8Z"/><path d="M12 4v16"/></svg>
+        <div><h4>Premium Packaging</h4><p>Thoughtfully packed for a divine experience.</p></div>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.3"><path d="M2 8h13v9H2z"/><path d="M15 11h4l3 3v3h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="18" cy="19" r="1.6"/></svg>
+        <div><h4>Fast &amp; Secure</h4><p>Safe delivery to your doorstep.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BESTSELLERS -->
+  <section class="bestsellers section-pad" id="bestsellers">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Handpicked with love</p>
+          <h2>Our Best Sellers</h2>
+        </div>
+        <a href="#" class="view-all">View All Products →</a>
+      </div>
+      <div class="product-row reveal">
+        <div class="product-track" id="productTrack">
+          <article class="p-card">
+            <div class="p-media">
+              <span class="p-tag">For Daily Wear</span>
+              <img src="https://images.unsplash.com/photo-1601824096525-954268b9eb72?w=800&q=80&auto=format&fit=crop" alt="Tulsi Kanthi Mala">
+            </div>
+            <div class="p-body">
+              <div>
+                <h3>Tulsi Kanthi Mala</h3>
+                <p class="p-sub">For Daily Wear</p>
+                <p class="p-price">₹399</p>
+              </div>
+              <div class="p-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            </div>
+          </article>
+          <article class="p-card">
+            <div class="p-media">
+              <span class="p-tag">For Spiritual Growth</span>
+              <img src="https://images.unsplash.com/photo-1772455659345-4e8745e9397c?w=800&q=80&auto=format&fit=crop" alt="Premium Tulsi Kanthi Mala">
+            </div>
+            <div class="p-body">
+              <div>
+                <h3>Premium Tulsi Kanthi Mala</h3>
+                <p class="p-sub">For Spiritual Growth</p>
+                <p class="p-price">₹599</p>
+              </div>
+              <div class="p-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            </div>
+          </article>
+          <article class="p-card">
+            <div class="p-media">
+              <span class="p-tag">With Sphatik</span>
+              <img src="https://images.unsplash.com/photo-1622993361103-931175ed74ee?w=800&q=80&auto=format&fit=crop" alt="Tulsi Kanthi Mala with Sphatik">
+            </div>
+            <div class="p-body">
+              <div>
+                <h3>Tulsi Kanthi Mala</h3>
+                <p class="p-sub">With Sphatik</p>
+                <p class="p-price">₹699</p>
+              </div>
+              <div class="p-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            </div>
+          </article>
+          <article class="p-card">
+            <div class="p-media">
+              <span class="p-tag">Rudraksha</span>
+              <img src="https://images.unsplash.com/photo-1622993361118-b6365d859ab6?w=800&q=80&auto=format&fit=crop" alt="Rudraksha Mala">
+            </div>
+            <div class="p-body">
+              <div>
+                <h3>Rudraksha Mala</h3>
+                <p class="p-sub">5 Mukhi, Blessed</p>
+                <p class="p-price">₹899</p>
+              </div>
+              <div class="p-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="carousel-arrows reveal">
+        <button class="arrow-btn" id="prevBtn" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="arrow-btn" id="nextBtn" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story section-pad" id="story">
+    <div class="container story-grid">
+      <div class="story-copy reveal">
+        <p class="eyebrow">Our Story</p>
+        <h2>Born from devotion.<br>Rooted in purpose.</h2>
+        <p>VEDIS is more than a brand. It is a return to ancient wisdom, mindful living, and sacred ritual. We create products that help you reconnect with yourself and the divine — one bead, one breath at a time.</p>
+        <a href="#" class="story-link">Know Our Story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="story-visual reveal reveal-delay-2">
+        <div class="blob">
+          <img src="https://images.unsplash.com/photo-1648577773985-aaf649a0d43f?w=900&q=80&auto=format&fit=crop" alt="Sacred ritual objects — ceramic pot, singing bowl and mala beads">
+        </div>
+        <div class="stat-card">
+          <div class="num" data-count="10000">0</div>
+          <div class="lbl">Malas Blessed &amp; Delivered</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE BANNER -->
+  <section class="lifestyle" id="lifestyle">
+    <div class="bg" id="parallaxBg">
+      <img src="https://images.unsplash.com/photo-1556760647-90d218f7ca5b?w=1600&q=80&auto=format&fit=crop" alt="Woman holding prayer beads in quiet devotion">
+    </div>
+    <div class="lifestyle-copy reveal">
+      <p class="eyebrow">A Ritual, Not a Routine</p>
+      <h2>Wear Your Intention. Live Your Devotion.</h2>
+      <a href="#bestsellers" class="btn btn-outline">Shop the Collection</a>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why section-pad" id="why">
+    <div class="container why-grid">
+      <div class="why-visual reveal">
+        <img src="https://images.unsplash.com/photo-1528319355578-ebbbc586afac?w=900&q=80&auto=format&fit=crop" alt="Hand wearing wooden mala bracelets">
+      </div>
+      <div class="reveal reveal-delay-1">
+        <p class="eyebrow">Why Choose Vedis</p>
+        <h2 style="margin:16px 0 30px;">Details worthy<br>of your devotion.</h2>
+        <div class="why-list">
+          <div class="why-row">
+            <span class="why-num">01</span>
+            <div><h3>Sacred Sourcing</h3><p>Every bead is sourced directly from trusted growers who follow age-old, sustainable harvesting traditions.</p></div>
+          </div>
+          <div class="why-row">
+            <span class="why-num">02</span>
+            <div><h3>Hand-Strung, Never Rushed</h3><p>Each mala is knotted bead-by-bead by skilled artisans — no machines, no shortcuts.</p></div>
+          </div>
+          <div class="why-row">
+            <span class="why-num">03</span>
+            <div><h3>Ritually Energised</h3><p>Before it reaches you, every piece is cleansed and blessed to carry positive, grounded energy.</p></div>
+          </div>
+          <div class="why-row">
+            <span class="why-num">04</span>
+            <div><h3>Built to Last a Lifetime</h3><p>Durable natural cords and finishing mean your mala ages with you, not against you.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews section-pad" id="reviews">
+    <div class="container">
+      <p class="eyebrow center" style="justify-content:center;">Loved by Thousands</p>
+      <h2 style="text-align:center; margin:16px 0 50px;">What Our Community Says</h2>
+      <div class="review-track reveal">
+        <div class="review-slides" id="reviewSlides">
+          <div class="review-slide-wrap">
+            <div class="r-card">
+              <span class="quote-mark">"</span>
+              <div class="stars">★★★★★</div>
+              <p class="txt">The energy and quality of the mala is beyond words. It feels so pure and authentic.</p>
+              <div class="who">Arjun, Delhi</div>
+            </div>
+            <div class="r-card">
+              <span class="quote-mark">"</span>
+              <div class="stars">★★★★★</div>
+              <p class="txt">Packaging, quality, and vibrations — everything is so premium. Highly recommended!</p>
+              <div class="who">Meera, Jaipur</div>
+            </div>
+            <div class="r-card">
+              <span class="quote-mark">"</span>
+              <div class="stars">★★★★★</div>
+              <p class="txt">Wearing it daily has brought so much peace and positivity into my life.</p>
+              <div class="who">Karan, Mumbai</div>
+            </div>
+          </div>
+          <div class="review-slide-wrap">
+            <div class="r-card">
+              <span class="quote-mark">"</span>
+              <div class="stars">★★★★★</div>
+              <p class="txt">A gift I bought for my mother turned into something I now wear every single day.</p>
+              <div class="who">Priya, Pune</div>
+            </div>
+            <div class="r-card">
+              <span class="quote-mark">"</span>
+              <div class="stars">★★★★★</div>
+              <p class="txt">Beautifully crafted, thoughtfully packed. It feels like a gift to yourself.</p>
+              <div class="who">Rohan, Bengaluru</div>
+            </div>
+            <div class="r-card">
+              <span class="quote-mark">"</span>
+              <div class="stars">★★★★★</div>
+              <p class="txt">Customer service was warm and quick. The mala itself is stunning in person.</p>
+              <div class="who">Ananya, Kolkata</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="review-nav">
+        <button class="arrow-btn" id="revPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <div class="dots" id="revDots"></div>
+        <button class="arrow-btn" id="revNext"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section class="section-pad" style="padding-top:100px;">
+    <div class="container">
+      <div class="insta-head reveal">
+        <p class="eyebrow">Instagram</p>
+        <h2>Follow Our Journey — @vedis.lifestyle</h2>
+      </div>
+    </div>
+    <div class="insta-grid reveal">
+      <a class="insta-item" href="#"><img src="https://images.unsplash.com/photo-1601824096525-954268b9eb72?w=500&q=80&auto=format&fit=crop" alt="Mala on wooden plate"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+      <a class="insta-item" href="#"><img src="https://images.unsplash.com/photo-1648577773985-aaf649a0d43f?w=500&q=80&auto=format&fit=crop" alt="Ceramic pot with ritual objects"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+      <a class="insta-item" href="#"><img src="https://images.unsplash.com/photo-1772455659345-4e8745e9397c?w=500&q=80&auto=format&fit=crop" alt="Assorted wooden beads"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+      <a class="insta-item" href="#"><img src="https://images.unsplash.com/photo-1643183638834-6f46f6667348?w=500&q=80&auto=format&fit=crop" alt="Forest river"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+      <a class="insta-item" href="#"><img src="https://images.unsplash.com/photo-1556760647-90d218f7ca5b?w=500&q=80&auto=format&fit=crop" alt="Woman holding prayer beads"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+      <a class="insta-item" href="#"><img src="https://images.unsplash.com/photo-1528319355578-ebbbc586afac?w=500&q=80&auto=format&fit=crop" alt="Hand with mala bracelets"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter" id="newsletter">
+    <div class="container news-inner">
+      <div class="news-left reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.2"><path d="M3 6h18v12H3z"/><path d="M3 6l9 7 9-7"/></svg>
+        <div>
+          <h3>Join the Journey</h3>
+          <p>Receive ritual inspiration, new arrivals, and mindful living insights.</p>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <form class="news-form" id="newsForm">
+          <input type="email" placeholder="Enter your email address" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <div class="news-msg" id="newsMsg">Thank you — welcome to the VEDIS circle.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-name" style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--forest);letter-spacing:5px;">VEDIS</span>
+        <p>Crafted for Devotion. Rooted in nature, guided by ritual. Returning to what is real.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.5-5.5 2-8a2.5 2.5 0 1 1 3 1.6"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M14 9h3V6h-3a3 3 0 0 0-3 3v2H9v3h2v6h3v-6h3l1-3h-4V9Z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M11 10l4 2-4 2z"/></svg></a>
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">All Products</a></li>
+          <li><a href="#">Tulsi Malas</a></li>
+          <li><a href="#">Rudraksha</a></li>
+          <li><a href="#">Bracelets</a></li>
+          <li><a href="#">Gift Boxes</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Rituals</h4>
+        <ul>
+          <li><a href="#">Daily Rituals</a></li>
+          <li><a href="#">Cleansing Guide</a></li>
+          <li><a href="#">How to Wear</a></li>
+          <li><a href="#">Benefits</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Shipping &amp; Delivery</a></li>
+          <li><a href="#">Returns &amp; Refunds</a></li>
+          <li><a href="#">Track Order</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Journal</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="badge-box">
+        <div class="badge-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7l-9-5Z"/></svg><div><div class="t1">100% Authentic</div><div class="t2">Sourced &amp; Verified</div></div></div>
+        <div class="badge-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><div><div class="t1">Secure Payment</div><div class="t2">100% Protected</div></div></div>
+        <div class="badge-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 21c4-3 7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 3 8 7 11Z"/></svg><div><div class="t1">Made with Devotion</div><div class="t2">For a Mindful You</div></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 VEDIS. All rights reserved.</span>
+      <span><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // LOADER
+  window.addEventListener('load', function(){
+    setTimeout(function(){ document.getElementById('loader').classList.add('hide'); }, 900);
+  });
+
+  // STICKY NAV
+  var nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // MOBILE DRAWER
+  var drawer = document.getElementById('mobile-drawer');
+  document.getElementById('hamburgerBtn').addEventListener('click', function(){ drawer.classList.add('open'); });
+  document.getElementById('mobile-close').addEventListener('click', function(){ drawer.classList.remove('open'); });
+  drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ drawer.classList.remove('open'); }); });
+
+  // CURSOR GLOW (desktop only)
+  var glow = document.getElementById('cursor-glow');
+  if(window.matchMedia('(pointer:fine)').matches && !reduceMotion){
+    document.addEventListener('mousemove', function(e){
+      glow.style.opacity = 1;
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mouseleave', function(){ glow.style.opacity = 0; });
+  }
+
+  // REVEAL ON SCROLL
+  document.querySelectorAll('.section-pad, .hero-copy, .hero-visual, .section-head, .product-row, .story-copy, .story-visual, .lifestyle-copy, .why-visual, .why-list, .review-track, .insta-head, .insta-grid, .news-left, .news-form').forEach(function(el){
+    el.classList.add('reveal');
+  });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ entry.target.classList.add('in'); }
+    });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  // BEAD THREAD SCROLLSPY
+  var beads = document.querySelectorAll('.bead');
+  var sectionMap = {};
+  beads.forEach(function(b){
+    var id = b.getAttribute('data-section');
+    var el = document.getElementById(id);
+    if(el) sectionMap[id] = el;
+  });
+  var beadIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var id = entry.target.id;
+      var bead = document.querySelector('.bead[data-section="'+id+'"]');
+      if(bead){ bead.classList.toggle('active', entry.isIntersecting); }
+    });
+  }, {threshold:.4});
+  Object.values(sectionMap).forEach(function(el){ beadIO.observe(el); });
+
+  // COUNTERS
+  var counters = document.querySelectorAll('[data-count]');
+  var counterIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var el = entry.target, target = +el.getAttribute('data-count'), cur = 0;
+        var step = Math.max(1, Math.floor(target/60));
+        var timer = setInterval(function(){
+          cur += step;
+          if(cur >= target){ cur = target; clearInterval(timer); }
+          el.textContent = cur.toLocaleString() + '+';
+        }, 22);
+        counterIO.unobserve(el);
+      }
+    });
+  }, {threshold:.5});
+  counters.forEach(function(el){ counterIO.observe(el); });
+
+  // PRODUCT CAROUSEL
+  var track = document.getElementById('productTrack');
+  document.getElementById('nextBtn').addEventListener('click', function(){
+    track.scrollBy({left: 330, behavior:'smooth'});
+  });
+  document.getElementById('prevBtn').addEventListener('click', function(){
+    track.scrollBy({left: -330, behavior:'smooth'});
+  });
+
+  // REVIEW CAROUSEL
+  var slidesWrap = document.getElementById('reviewSlides');
+  var slideCount = slidesWrap.children.length;
+  var revIndex = 0;
+  var dotsWrap = document.getElementById('revDots');
+  for(var i=0;i<slideCount;i++){
+    var d = document.createElement('div');
+    d.className = 'dot' + (i===0 ? ' active' : '');
+    d.addEventListener('click', function(idx){ return function(){ goToSlide(idx); }; }(i));
+    dotsWrap.appendChild(d);
+  }
+  function goToSlide(i){
+    revIndex = (i + slideCount) % slideCount;
+    slidesWrap.style.transform = 'translateX(-' + (revIndex*100) + '%)';
+    dotsWrap.querySelectorAll('.dot').forEach(function(dot, idx){ dot.classList.toggle('active', idx===revIndex); });
+  }
+  document.getElementById('revNext').addEventListener('click', function(){ goToSlide(revIndex+1); });
+  document.getElementById('revPrev').addEventListener('click', function(){ goToSlide(revIndex-1); });
+  setInterval(function(){ if(!reduceMotion) goToSlide(revIndex+1); }, 6500);
+
+  // PARALLAX ON LIFESTYLE BANNER
+  var parallaxBg = document.getElementById('parallaxBg');
+  var lifestyleSection = document.getElementById('lifestyle');
+  if(!reduceMotion){
+    window.addEventListener('scroll', function(){
+      var rect = lifestyleSection.getBoundingClientRect();
+      if(rect.bottom > 0 && rect.top < window.innerHeight){
+        var progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+        parallaxBg.style.transform = 'translateY(' + (progress*60 - 30) + 'px)';
+      }
+    });
+  }
+
+  // NEWSLETTER FORM
+  document.getElementById('newsForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('newsMsg').classList.add('show');
+    this.reset();
+  });
+
+})();
+</script>
+
+</body>
+</html>
