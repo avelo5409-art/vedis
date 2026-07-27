@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — VEDIS | Crafted for Devotion</title>
+<meta name="description" content="Secure checkout for your VEDIS order — premium Tulsi Kanthi Malas and spiritual essentials.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#F7F2E7; --ivory-2:#F1E9D9; --sand:#E9DCC2; --stone:#D6C4A0;
+    --olive:#4B5A3C; --olive-dark:#333E27; --forest:#1E2818; --forest-2:#151E10;
+    --gold:#AD8A4E; --gold-light:#C7A868; --brown:#6E4E33; --ink:#2A2620; --ink-soft:#5B5245;
+    --white:#FFFDF8; --line: rgba(42,38,32,0.12);
+    --shadow-soft: 0 20px 60px -20px rgba(42,38,32,0.25);
+    --shadow-card: 0 12px 32px -12px rgba(42,38,32,0.18);
+    --ease: cubic-bezier(.22,1,.36,1); --dur-fast:.4s; --dur:.8s; --dur-slow:1.4s;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;} }
+  body{ font-family:'Inter',sans-serif; background:var(--ivory); color:var(--ink); line-height:1.6; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+  img{max-width:100%; display:block;}
+  a{text-decoration:none; color:inherit;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
+  ul{list-style:none;}
+  .container{max-width:1320px; margin:0 auto; padding:0 48px;}
+  @media(max-width:768px){ .container{padding:0 24px;} }
+  h1,h2,h3,h4{ font-family:'Cormorant Garamond', serif; font-weight:500; color:var(--forest); letter-spacing:.2px; }
+  .eyebrow{ font-family:'Inter',sans-serif; font-size:11px; letter-spacing:3.5px; text-transform:uppercase; color:var(--gold); font-weight:600; display:flex; align-items:center; gap:12px; }
+  .eyebrow::before{ content:''; width:26px; height:1px; background:var(--gold); display:inline-block; }
+  ::-webkit-scrollbar{width:9px;}
+  ::-webkit-scrollbar-track{background:var(--ivory);}
+  ::-webkit-scrollbar-thumb{background:var(--stone); border-radius:10px;}
+
+  #loader{ position:fixed; inset:0; z-index:9999; background:var(--forest); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:22px; transition:opacity 1s var(--ease), visibility 1s var(--ease); }
+  #loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+  .loader-mark{ font-family:'Cormorant Garamond', serif; font-size:15px; letter-spacing:10px; color:var(--ivory); text-transform:uppercase; }
+  .loader-leaf{ width:46px; height:46px; opacity:.9; }
+  .loader-leaf svg{ width:100%; height:100%; }
+  .loader-leaf path{ stroke:var(--gold-light); stroke-width:1.2; fill:none; stroke-dasharray:220; stroke-dashoffset:220; animation: draw 1.8s var(--ease) infinite; }
+  @keyframes draw{ 0%{stroke-dashoffset:220;} 55%{stroke-dashoffset:0;} 100%{stroke-dashoffset:-220;} }
+  .loader-bar{ width:180px; height:1px; background:rgba(255,255,255,.15); position:relative; overflow:hidden;}
+  .loader-bar::after{ content:''; position:absolute; left:-40%; top:0; height:100%; width:40%; background:var(--gold-light); animation:loaderSweep 1.4s var(--ease) infinite; }
+  @keyframes loaderSweep{ 0%{left:-40%;} 100%{left:100%;} }
+
+  #cursor-glow{ position:fixed; top:0; left:0; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(173,138,78,0.10), transparent 70%); pointer-events:none; z-index:2; transform:translate(-50%,-50%); transition:opacity .3s ease; opacity:0; }
+
+  header.nav{ position:fixed; top:0; left:0; right:0; z-index:500; padding:26px 0; transition: all .5s var(--ease); }
+  header.nav .container{ display:flex; align-items:center; justify-content:space-between; }
+  header.nav.scrolled{ padding:14px 0; background:rgba(247,242,231,0.78); backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%); box-shadow:0 1px 0 var(--line); }
+  .brand{ display:flex; flex-direction:column; align-items:flex-start; }
+  .brand .brand-name{ font-family:'Cormorant Garamond', serif; font-size:28px; letter-spacing:6px; font-weight:500; color:var(--forest); }
+  .brand .brand-tag{ font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-top:2px; }
+  .checkout-lock{ display:flex; align-items:center; gap:8px; font-size:11.5px; letter-spacing:1px; text-transform:uppercase; font-weight:600; color:var(--olive-dark); }
+  .checkout-lock svg{ width:15px; height:15px; stroke:var(--gold); }
+  @media(max-width:700px){ .checkout-lock span{ display:none; } }
+
+  .btn{ position:relative; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:16px 30px; border-radius:100px; font-size:12px; letter-spacing:2px; text-transform:uppercase; font-weight:600; transition: transform .4s var(--ease), box-shadow .4s var(--ease); }
+  .btn svg{ width:14px; height:14px; transition:transform .45s var(--ease); }
+  .btn:hover svg{ transform:translateX(5px); }
+  .btn::before{ content:''; position:absolute; top:0; left:-120%; width:60%; height:100%; background:linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent); transform:skewX(-20deg); transition:left .8s var(--ease); }
+  .btn:hover::before{ left:130%; }
+  .btn-solid{ background:var(--olive); color:var(--white); }
+  .btn-solid:hover{ background:var(--olive-dark); box-shadow:0 14px 30px -10px rgba(75,90,60,.55); transform:translateY(-2px); }
+  .btn-outline{ background:transparent; color:var(--forest); border:1px solid var(--forest); }
+  .btn-outline:hover{ background:var(--forest); color:var(--white); transform:translateY(-2px); }
+  .btn-block{ width:100%; }
+  .ripple{ position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:rippleAnim .65s ease-out; pointer-events:none; }
+  @keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
+
+  .reveal{ opacity:0; transform:translateY(36px); transition:opacity 1s var(--ease), transform 1s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-delay-1{ transition-delay:.12s; }
+  .reveal-delay-2{ transition-delay:.24s; }
+
+  /* STEP PROGRESS */
+  .checkout-top{ padding:150px 0 40px; }
+  .step-progress{ display:flex; align-items:center; justify-content:center; gap:0; max-width:520px; margin:0 auto; }
+  .step{ display:flex; flex-direction:column; align-items:center; gap:10px; flex:1; position:relative; }
+  .step .circle{
+    width:34px; height:34px; border-radius:50%; border:1.5px solid var(--stone); background:var(--white);
+    display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; color:var(--ink-soft);
+    transition:all .4s var(--ease); z-index:2;
+  }
+  .step.active .circle, .step.done .circle{ background:var(--forest); border-color:var(--forest); color:var(--white); }
+  .step .lbl{ font-size:10.5px; letter-spacing:1px; text-transform:uppercase; color:var(--ink-soft); font-weight:600; }
+  .step.active .lbl{ color:var(--forest); }
+  .step::after{ content:''; position:absolute; top:17px; left:50%; width:100%; height:1.5px; background:var(--line); z-index:1; }
+  .step:last-child::after{ display:none; }
+  .step.done::after{ background:var(--forest); }
+
+  /* LAYOUT */
+  .checkout-layout{ display:grid; grid-template-columns:1.5fr 1fr; gap:56px; align-items:flex-start; padding-bottom:120px; }
+  @media(max-width:980px){ .checkout-layout{ grid-template-columns:1fr; } }
+
+  .form-card{ background:var(--white); border:1px solid var(--line); border-radius:22px; padding:38px 34px; box-shadow:var(--shadow-card); margin-bottom:30px; }
+  .form-card h3{ font-size:22px; margin-bottom:22px; display:flex; align-items:center; gap:12px; }
+  .form-card h3 svg{ width:20px; height:20px; stroke:var(--gold); }
+  .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .form-grid.single{ grid-template-columns:1fr; }
+  @media(max-width:560px){ .form-grid{ grid-template-columns:1fr; } }
+  .field{ display:flex; flex-direction:column; gap:8px; }
+  .field label{ font-size:11.5px; letter-spacing:1px; text-transform:uppercase; font-weight:600; color:var(--ink-soft); }
+  .field input, .field select{
+    border:1px solid var(--line); border-radius:12px; padding:13px 16px; font-size:14px; font-family:'Inter',sans-serif;
+    color:var(--ink); background:var(--ivory-2); outline:none; transition:border-color .3s ease;
+  }
+  .field input:focus, .field select:focus{ border-color:var(--gold); background:var(--white); }
+  .checkbox-row{ display:flex; align-items:center; gap:10px; margin-top:6px; }
+  .checkbox-row input{ width:16px; height:16px; accent-color:var(--olive); }
+  .checkbox-row label{ font-size:13px; color:var(--ink-soft); }
+
+  /* PAYMENT METHODS */
+  .pay-options{ display:flex; flex-direction:column; gap:14px; }
+  .pay-option{
+    border:1px solid var(--line); border-radius:14px; padding:18px 20px; display:flex; align-items:center; gap:16px;
+    cursor:pointer; transition:all .3s var(--ease);
+  }
+  .pay-option:hover{ border-color:var(--gold); }
+  .pay-option.selected{ border-color:var(--olive); background:var(--ivory-2); }
+  .pay-option .radio{ width:20px; height:20px; border-radius:50%; border:1.5px solid var(--stone); flex-shrink:0; position:relative; }
+  .pay-option.selected .radio{ border-color:var(--olive); }
+  .pay-option.selected .radio::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--olive); }
+  .pay-option svg{ width:24px; height:24px; stroke:var(--gold); flex-shrink:0; }
+  .pay-option .info h4{ font-size:15.5px; font-family:'Inter',sans-serif; font-weight:600; color:var(--forest); }
+  .pay-option .info p{ font-size:12px; color:var(--ink-soft); }
+  .pay-detail{ max-height:0; overflow:hidden; transition:max-height .5s var(--ease); }
+  .pay-option.selected + .pay-detail{ max-height:200px; }
+  .pay-detail-inner{ padding:18px 4px 6px; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .pay-detail-inner .field.full{ grid-column:1/3; }
+
+  /* ORDER SUMMARY */
+  .summary-card{ background:var(--white); border:1px solid var(--line); border-radius:22px; padding:34px 30px; box-shadow:var(--shadow-soft); position:sticky; top:120px; }
+  .summary-card h3{ font-size:22px; margin-bottom:22px; }
+  .mini-item{ display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+  .mini-item img{ width:56px; height:56px; border-radius:10px; object-fit:cover; }
+  .mini-item .mi-info{ flex:1; }
+  .mini-item h4{ font-size:14px; font-family:'Inter',sans-serif; font-weight:600; color:var(--forest); }
+  .mini-item p{ font-size:11.5px; color:var(--ink-soft); }
+  .mini-item .mi-price{ font-size:13.5px; font-weight:600; color:var(--olive-dark); font-family:'Inter',sans-serif; }
+  .summary-divider{ height:1px; background:var(--line); margin:20px 0; }
+  .summary-row{ display:flex; justify-content:space-between; font-size:14px; color:var(--ink-soft); margin-bottom:12px; }
+  .summary-row.discount{ color:var(--olive-dark); }
+  .summary-total{ display:flex; justify-content:space-between; align-items:baseline; margin:18px 0 26px; }
+  .summary-total .lbl{ font-size:14px; font-weight:600; color:var(--forest); text-transform:uppercase; letter-spacing:.5px; }
+  .summary-total .val{ font-family:'Cormorant Garamond',serif; font-size:30px; color:var(--olive-dark); font-weight:600; }
+  .trust-mini{ display:flex; flex-direction:column; gap:12px; margin-top:24px; padding-top:22px; border-top:1px solid var(--line); }
+  .trust-mini div{ display:flex; align-items:center; gap:10px; font-size:12px; color:var(--ink-soft); }
+  .trust-mini svg{ width:17px; height:17px; stroke:var(--gold); flex-shrink:0; }
+
+  /* CONFIRMATION OVERLAY */
+  #confirm-overlay{ position:fixed; inset:0; background:rgba(21,30,16,.7); backdrop-filter:blur(6px); z-index:1000; display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; pointer-events:none; transition:opacity .4s var(--ease); }
+  #confirm-overlay.open{ opacity:1; pointer-events:auto; }
+  .confirm-modal{ background:var(--white); border-radius:24px; max-width:480px; width:100%; padding:50px 40px; text-align:center; box-shadow:var(--shadow-soft); transform:scale(.9); transition:transform .45s var(--ease); }
+  #confirm-overlay.open .confirm-modal{ transform:scale(1); }
+  .confirm-modal .check-icon{ width:70px; height:70px; border-radius:50%; background:var(--ivory-2); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; }
+  .confirm-modal .check-icon svg{ width:32px; height:32px; stroke:var(--olive); }
+  .confirm-modal h3{ font-size:28px; margin-bottom:12px; }
+  .confirm-modal p{ font-size:14px; color:var(--ink-soft); margin-bottom:28px; }
+
+  footer{ background:var(--ivory-2); padding-top:80px; }
+  .footer-top{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr 1fr 1.1fr; gap:40px; padding-bottom:60px; border-bottom:1px solid var(--line); }
+  .footer-brand p{ font-size:13px; color:var(--ink-soft); margin:16px 0 22px; max-width:230px; }
+  .social-row{ display:flex; gap:14px; }
+  .social-row a{ width:36px; height:36px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .3s ease; }
+  .social-row svg{ width:15px; height:15px; stroke:var(--forest); }
+  .social-row a:hover{ background:var(--forest); border-color:var(--forest); }
+  .social-row a:hover svg{ stroke:var(--ivory); }
+  .f-col h4{ font-family:'Inter',sans-serif; font-size:12.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--forest); margin-bottom:20px; font-weight:700; }
+  .f-col li{ margin-bottom:12px; }
+  .f-col a{ font-size:13.5px; color:var(--ink-soft); transition:color .3s ease; }
+  .f-col a:hover{ color:var(--gold); }
+  .badge-box{ border:1px solid var(--line); border-radius:14px; padding:22px; display:flex; flex-direction:column; gap:16px; background:var(--white); }
+  .badge-row{ display:flex; align-items:center; gap:12px; }
+  .badge-row svg{ width:22px; height:22px; stroke:var(--gold); flex-shrink:0; }
+  .badge-row .t1{ font-size:11.5px; font-weight:700; letter-spacing:.5px; color:var(--forest); }
+  .badge-row .t2{ font-size:11px; color:var(--ink-soft); }
+  .footer-bottom{ display:flex; justify-content:space-between; padding:26px 0; font-size:12px; color:var(--ink-soft); flex-wrap:wrap; gap:10px; }
+  .footer-bottom a{ margin-left:22px; }
+  @media(max-width:980px){ .footer-top{ grid-template-columns:1fr 1fr; } .footer-brand{ grid-column:1/3; } }
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-leaf"><svg viewBox="0 0 60 60" fill="none"><path d="M30 6C42 14 48 26 40 42C32 50 18 50 12 40C6 28 14 14 30 6Z"/></svg></div>
+  <div class="loader-mark">VEDIS</div>
+  <div class="loader-bar"></div>
+</div>
+
+<div id="cursor-glow"></div>
+
+<header class="nav" id="siteNav">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-name">VEDIS</span>
+      <span class="brand-tag">Crafted for Devotion.</span>
+    </a>
+    <div class="checkout-lock">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <span>Secure Checkout</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="checkout-top">
+    <div class="container">
+      <div class="step-progress reveal in">
+        <div class="step done"><div class="circle">✓</div><span class="lbl">Cart</span></div>
+        <div class="step active"><div class="circle">2</div><span class="lbl">Checkout</span></div>
+        <div class="step"><div class="circle">3</div><span class="lbl">Confirmed</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container checkout-layout">
+
+      <div>
+        <div class="form-card reveal">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg> Contact Information</h3>
+          <div class="form-grid">
+            <div class="field"><label>Full Name</label><input type="text" placeholder="Anaya Sharma"></div>
+            <div class="field"><label>Email Address</label><input type="email" placeholder="you@example.com"></div>
+            <div class="field"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"></div>
+            <div class="field"><label>Alternate Phone (optional)</label><input type="tel" placeholder="+91 00000 00000"></div>
+          </div>
+        </div>
+
+        <div class="form-card reveal reveal-delay-1">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 21c4-3 7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 3 8 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg> Shipping Address</h3>
+          <div class="form-grid single" style="margin-bottom:18px;">
+            <div class="field"><label>Address Line 1</label><input type="text" placeholder="House no., Street name"></div>
+          </div>
+          <div class="form-grid" style="margin-bottom:18px;">
+            <div class="field"><label>Address Line 2 (optional)</label><input type="text" placeholder="Apartment, landmark"></div>
+            <div class="field"><label>City</label><input type="text" placeholder="Jaipur"></div>
+          </div>
+          <div class="form-grid">
+            <div class="field"><label>State</label><input type="text" placeholder="Rajasthan"></div>
+            <div class="field"><label>Pincode</label><input type="text" placeholder="302001"></div>
+          </div>
+          <div class="checkbox-row"><input type="checkbox" id="saveAddr"><label for="saveAddr">Save this address for future orders</label></div>
+        </div>
+
+        <div class="form-card reveal reveal-delay-2">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> Payment Method</h3>
+          <div class="pay-options" id="payOptions">
+            <div class="pay-option selected" data-method="card">
+              <div class="radio"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              <div class="info"><h4>Credit / Debit Card</h4><p>Visa, Mastercard, RuPay accepted</p></div>
+            </div>
+            <div class="pay-detail">
+              <div class="pay-detail-inner">
+                <div class="field full"><label>Card Number</label><input type="text" placeholder="1234 5678 9012 3456"></div>
+                <div class="field"><label>Expiry Date</label><input type="text" placeholder="MM / YY"></div>
+                <div class="field"><label>CVV</label><input type="text" placeholder="123"></div>
+              </div>
+            </div>
+
+            <div class="pay-option" data-method="upi">
+              <div class="radio"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 12h16M4 6h16M4 18h10"/></svg>
+              <div class="info"><h4>UPI</h4><p>Google Pay, PhonePe, Paytm &amp; more</p></div>
+            </div>
+            <div class="pay-detail">
+              <div class="pay-detail-inner">
+                <div class="field full"><label>UPI ID</label><input type="text" placeholder="yourname@upi"></div>
+              </div>
+            </div>
+
+            <div class="pay-option" data-method="cod">
+              <div class="radio"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 7h18v10H3z"/><circle cx="12" cy="12" r="2.5"/></svg>
+              <div class="info"><h4>Cash on Delivery</h4><p>Pay when your mala arrives</p></div>
+            </div>
+            <div class="pay-detail"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-card reveal reveal-delay-1">
+        <h3>Order Summary</h3>
+        <div id="miniItems">
+          <div class="mini-item">
+            <img src="https://images.unsplash.com/photo-1772455659345-4e8745e9397c?w=200&q=80&auto=format&fit=crop" alt="Premium Tulsi Kanthi Mala">
+            <div class="mi-info"><h4>Premium Tulsi Kanthi Mala</h4><p>Qty: 1</p></div>
+            <div class="mi-price">₹599</div>
+          </div>
+          <div class="mini-item">
+            <img src="https://images.unsplash.com/photo-1622993361118-b6365d859ab6?w=200&q=80&auto=format&fit=crop" alt="Rudraksha Mala">
+            <div class="mi-info"><h4>Rudraksha Mala</h4><p>Qty: 1</p></div>
+            <div class="mi-price">₹899</div>
+          </div>
+          <div class="mini-item">
+            <img src="https://images.unsplash.com/photo-1528319355578-ebbbc586afac?w=200&q=80&auto=format&fit=crop" alt="Sandalwood Wrist Mala">
+            <div class="mi-info"><h4>Sandalwood Wrist Mala</h4><p>Qty: 2</p></div>
+            <div class="mi-price">₹918</div>
+          </div>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row"><span>Subtotal</span><span>₹2,416</span></div>
+        <div class="summary-row"><span>Shipping</span><span>Free</span></div>
+        <div class="summary-row discount"><span>Discount (VEDIS10)</span><span>−₹242</span></div>
+        <div class="summary-total"><span class="lbl">Total</span><span class="val">₹2,174</span></div>
+        <button class="btn btn-solid btn-block" id="placeOrderBtn">Place Order <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <div class="trust-mini">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> 256-bit SSL Encrypted Payment</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 14a8 8 0 1 1 16 0c0 4-3 7-8 8-5-1-8-4-8-8Z"/></svg> Easy 7-Day Returns</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7l-9-5Z"/></svg> 100% Authentic Products</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-name" style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--forest);letter-spacing:5px;">VEDIS</span>
+        <p>Crafted for Devotion. Rooted in nature, guided by ritual. Returning to what is real.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.5-5.5 2-8a2.5 2.5 0 1 1 3 1.6"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M14 9h3V6h-3a3 3 0 0 0-3 3v2H9v3h2v6h3v-6h3l1-3h-4V9Z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="M11 10l4 2-4 2z"/></svg></a>
+        </div>
+      </div>
+      <div class="f-col"><h4>Shop</h4><ul><li><a href="shop.html">All Products</a></li><li><a href="shop.html">Tulsi Malas</a></li><li><a href="shop.html">Rudraksha</a></li><li><a href="shop.html">Bracelets</a></li><li><a href="shop.html">Gift Boxes</a></li></ul></div>
+      <div class="f-col"><h4>Rituals</h4><ul><li><a href="index.html#why">Daily Rituals</a></li><li><a href="index.html#why">Cleansing Guide</a></li><li><a href="index.html#why">How to Wear</a></li><li><a href="index.html#why">Benefits</a></li></ul></div>
+      <div class="f-col"><h4>Help</h4><ul><li><a href="#">FAQs</a></li><li><a href="#">Shipping &amp; Delivery</a></li><li><a href="#">Returns &amp; Refunds</a></li><li><a href="#">Track Order</a></li></ul></div>
+      <div class="f-col"><h4>Company</h4><ul><li><a href="index.html#story">Our Story</a></li><li><a href="index.html#reviews">Journal</a></li><li><a href="index.html#newsletter">Contact Us</a></li><li><a href="#">Careers</a></li></ul></div>
+      <div class="badge-box">
+        <div class="badge-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7l-9-5Z"/></svg><div><div class="t1">100% Authentic</div><div class="t2">Sourced &amp; Verified</div></div></div>
+        <div class="badge-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><div><div class="t1">Secure Payment</div><div class="t2">100% Protected</div></div></div>
+        <div class="badge-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M12 21c4-3 7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 3 8 7 11Z"/></svg><div><div class="t1">Made with Devotion</div><div class="t2">For a Mindful You</div></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 VEDIS. All rights reserved.</span>
+      <span><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<div id="confirm-overlay">
+  <div class="confirm-modal">
+    <div class="check-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <h3>Order Placed!</h3>
+    <p>Thank you for choosing VEDIS. Your ritual essentials are being prepared with care.</p>
+    <a href="thankyou.html" class="btn btn-solid btn-block">View Order Confirmation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  window.addEventListener('load', function(){
+    setTimeout(function(){ document.getElementById('loader').classList.add('hide'); }, 900);
+  });
+
+  var nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.scrollY > 40); });
+
+  var glow = document.getElementById('cursor-glow');
+  if(window.matchMedia('(pointer:fine)').matches && !reduceMotion){
+    document.addEventListener('mousemove', function(e){
+      glow.style.opacity = 1; glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mouseleave', function(){ glow.style.opacity = 0; });
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){ if(entry.isIntersecting){ entry.target.classList.add('in'); } });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('.btn');
+    if(!btn) return;
+    var rect = btn.getBoundingClientRect();
+    var ripple = document.createElement('span');
+    var size = Math.max(rect.width, rect.height);
+    ripple.className = 'ripple';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+    btn.style.position = btn.style.position || 'relative';
+    btn.appendChild(ripple);
+    setTimeout(function(){ ripple.remove(); }, 650);
+  });
+
+  /* PAYMENT METHOD SELECT */
+  document.querySelectorAll('.pay-option').forEach(function(opt){
+    opt.addEventListener('click', function(){
+      document.querySelectorAll('.pay-option').forEach(function(o){ o.classList.remove('selected'); });
+      opt.classList.add('selected');
+    });
+  });
+
+  /* PLACE ORDER */
+  document.getElementById('placeOrderBtn').addEventListener('click', function(){
+    document.getElementById('confirm-overlay').classList.add('open');
+  });
+
+})();
+</script>
+
+</body>
+</html>
